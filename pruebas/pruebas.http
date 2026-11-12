@@ -1,0 +1,32 @@
+### 1. Préstamo de libro disponible -> 201 Created
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{ "estudianteId": 1, "libroId": 1 }
+
+### 2. Libro ya prestado (el mismo libro 1) -> 409 Conflict, sin nuevo préstamo
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{ "estudianteId": 2, "libroId": 1 }
+
+### 3. Estudiante inexistente -> 404 Not Found
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{ "estudianteId": 99, "libroId": 2 }
+
+### 4. Libro inexistente -> 404 Not Found
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{ "estudianteId": 1, "libroId": 99 }
+
+### 5. Consulta de préstamos -> 200 OK con registros
+GET http://localhost:8080/api/prestamos
+
+### 6. Solicitud inválida (sin datos) -> 400 Bad Request (R4)
+POST http://localhost:8080/api/prestamos
+Content-Type: application/json
+
+{}
